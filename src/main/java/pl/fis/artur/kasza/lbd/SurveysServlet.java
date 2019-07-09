@@ -2,9 +2,12 @@ package pl.fis.artur.kasza.lbd;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,15 +53,19 @@ public class SurveysServlet extends HttpServlet {
 				+ "Contact with teachers?: %s\n"
 				+ "Inclusion of work/practical experience?: %s\n\n", answers.get(0), answers.get(1), answers.get(2)))
 		.append(String.format("Successful survey submissions: %d", successfulSubmitted));
-		HttpSession session = request.getSession();
 		
-		//Save data in session
-		session.setAttribute("firstName", firstName);
-		session.setAttribute("lastName", lastName);
-		session.setAttribute("university", university);
-		session.setAttribute("faculty", faculty);
-		session.setAttribute("answers", answers);
+		Survey survey = new Survey(firstName, lastName, university, faculty, degree, answers);
 		
+		ServletContext context = request.getServletContext();
+		//Save data in context
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<Survey> surveys = (ArrayList<Survey>) context.getAttribute("surveys");
+		if(surveys == null) {
+			surveys = new ArrayList<Survey>();
+		}
+		surveys.add(survey);
+		context.setAttribute("surveys", surveys);
 		
 	}
 	
