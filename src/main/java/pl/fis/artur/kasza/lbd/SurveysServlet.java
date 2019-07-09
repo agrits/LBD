@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,13 +18,17 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/surveys")
 public class SurveysServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private int successfulSubmitted = 0;
+	@Override
+	public void init(ServletConfig config) throws ServletException{
+		successfulSubmitted = 0;
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		successfulSubmitted++;
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		String university = request.getParameter("university");
@@ -43,8 +48,8 @@ public class SurveysServlet extends HttpServlet {
 				+ "Degree: %s\n", university, faculty, degree))
 		.append(String.format("Quality of courses & teaching?: %s\n"
 				+ "Contact with teachers?: %s\n"
-				+ "Inclusion of work/practical experience?: %s", answers.get(0), answers.get(1), answers.get(2)));
-		
+				+ "Inclusion of work/practical experience?: %s\n\n", answers.get(0), answers.get(1), answers.get(2)))
+		.append(String.format("Successful survey submissions: %d", successfulSubmitted));
 		HttpSession session = request.getSession();
 		
 		//Save data in session
@@ -53,6 +58,8 @@ public class SurveysServlet extends HttpServlet {
 		session.setAttribute("university", university);
 		session.setAttribute("faculty", faculty);
 		session.setAttribute("answers", answers);
+		
+		
 	}
 	
 	@Override
