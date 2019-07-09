@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>University survey</title>
+</head>
+<body>
+<form action="/lbd/surveys" method=post>
+<label for="firstName">First name:</label>
+<input required type=text name="firstName"><br>
+<label for="lastName">Last name:</label>
+<input required type=text name="lastName"><br>
+<label for="university">University name:</label>
+<input required type=text name="university"><br>
+<label for="faculty">Faculty name:</label>
+<input required type=text name="faculty"><br>
+<label for="degree">Degree:</label>
+<br>
+<select required name="degree">
+<option value="Bachelor">Bachelor</option>
+<option value="Masters">Masters</option>
+</select><br>
+Questions:
+<ol>
+<li>Quality of courses & teaching? <input required name="answer0" type=number min=1 max =10 size=1></li>
+<li>Contact with teachers? <input required name="answer1" type=number min=1 max =10 size=1></li>
+<li>Inclusion of work/practical experience? <input required name="answer2" type=number min=1 max =10 size=1></li>
+</ol>
+<input type=submit value="Submit!">
+</form>
+</body>
+</html>
