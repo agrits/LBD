@@ -54,6 +54,7 @@ public class SurveysServlet extends HttpServlet {
 				+ "Inclusion of work/practical experience?: %s\n\n", answers.get(0), answers.get(1), answers.get(2)))
 		.append(String.format("Successful survey submissions: %d", successfulSubmitted));
 		
+		
 		Survey survey = new Survey(firstName, lastName, university, faculty, degree, answers);
 		
 		ServletContext context = request.getServletContext();
