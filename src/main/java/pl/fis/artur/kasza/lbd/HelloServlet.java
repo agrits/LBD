@@ -22,7 +22,7 @@ public class HelloServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		PrintWriter pw = response.getWriter();
 		pw.append("Hello FIS\n\n");
 		Enumeration<String> headerNames = request.getHeaderNames();

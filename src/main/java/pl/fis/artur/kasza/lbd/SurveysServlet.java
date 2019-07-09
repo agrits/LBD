@@ -23,7 +23,7 @@ public class SurveysServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		String university = request.getParameter("university");
@@ -34,6 +34,7 @@ public class SurveysServlet extends HttpServlet {
 			answers.add(request.getParameter("answer"+i));
 		}
 		
+		//Print out answers
 		response.getWriter()
 		.append(String.format("Thanks %s %s for participation in our university survey.\n", firstName, lastName))
 		.append(String.format("Your answers:\n"
@@ -46,11 +47,20 @@ public class SurveysServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		//Save data in session
 		session.setAttribute("firstName", firstName);
 		session.setAttribute("lastName", lastName);
 		session.setAttribute("university", university);
 		session.setAttribute("faculty", faculty);
 		session.setAttribute("answers", answers);
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+			//Redirect get to html form
+	        response.sendRedirect("/lbd/survey.html");
+	        
 	}
 
 }
