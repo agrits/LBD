@@ -41,11 +41,7 @@ public class CSVServlet extends HttpServlet {
 		@SuppressWarnings("unchecked")
 		HashMap<String, ArrayList<Double>> statistics = Calculator.calculate((ArrayList<Survey>)surveys);
 		ArrayList<String> keys = new ArrayList<String>(statistics.keySet());
-		Collections.sort(keys, new Comparator<String>(){
-			public int compare(String key1, String key2) {
-				return Double.compare(statistics.get(key2).get(3), statistics.get(key1).get(3));
-			}
-		});
+		Collections.sort(keys, (String key1, String key2) -> Double.compare(statistics.get(key2).get(3), statistics.get(key1).get(3)));
 		 try
 		    { 
 		        for(String university : keys) {
