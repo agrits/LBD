@@ -3,6 +3,7 @@ package pl.fis.artur.kasza.lbd;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 
@@ -42,9 +43,11 @@ public class StatisticsServlet extends HttpServlet {
 		if(surveys != null) {
 			HashMap<String, ArrayList<Double>> scores;
 			scores = Calculator.calculate(surveys);
+			
+			
+			pw.append("<a target='_blank' href='/lbd/csv'>Download CSV</a>");
 			for(String university : scores.keySet()) {
 				ArrayList<Double> currentScores = scores.get(university);
-				pw.append("<a target='_blank' href='/lbd/csv'>Download CSV</a>");
 				pw.append(String.format("<h3>%s</h3>", university));
 				for(int i = 0; i<3; i++) {
 					pw.append(String.format("\"%s\": %.2f<br>", Questions.questions[i], currentScores.get(i)));

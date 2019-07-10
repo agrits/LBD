@@ -52,8 +52,7 @@ public class SurveysServlet extends HttpServlet {
 		.append(String.format("Quality of courses & teaching?: %s\n"
 				+ "Contact with teachers?: %s\n"
 				+ "Inclusion of work/practical experience?: %s\n\n", answers.get(0), answers.get(1), answers.get(2)))
-		.append(String.format("Successful survey submissions: %d", successfulSubmitted));
-		
+		.append(String.format("Successful survey submissions: %d\n\n", successfulSubmitted));		
 		
 		Survey survey = new Survey(firstName, lastName, university, faculty, degree, answers);
 		

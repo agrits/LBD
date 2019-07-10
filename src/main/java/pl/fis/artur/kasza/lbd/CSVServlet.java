@@ -3,7 +3,10 @@ package pl.fis.artur.kasza.lbd;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,12 +40,17 @@ public class CSVServlet extends HttpServlet {
 		if(surveys!=null) {
 		@SuppressWarnings("unchecked")
 		HashMap<String, ArrayList<Double>> statistics = Calculator.calculate((ArrayList<Survey>)surveys);
-		
+		ArrayList<String> keys = new ArrayList<String>(statistics.keySet());
+		Collections.sort(keys, new Comparator<String>(){
+			public int compare(String key1, String key2) {
+				return Double.compare(statistics.get(key2).get(3), statistics.get(key1).get(3));
+			}
+		});
 		 try
 		    { 
-		        for(String university : statistics.keySet()) {
+		        for(String university : keys) {
 		        	ArrayList<Double> currentAverages = statistics.get(university);
-		        	outputStream.write(String.format("%s; %s; %s; %s; %s;", 
+		        	outputStream.write(String.format("%s; %s; %s; %s; %s;\n", 
 		        			university, 
 		        			currentAverages.get(0), 
 		        			currentAverages.get(1), 
