@@ -23,7 +23,8 @@ public class SurveysServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private int successfulSubmitted = 0;
 	@Override
-	public void init(ServletConfig config) throws ServletException{
+	public void init() throws ServletException{
+		super.init();
 		successfulSubmitted = 0;
 	}
 
@@ -31,6 +32,8 @@ public class SurveysServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Utils.prepareSession(request);
+		
 		successfulSubmitted++;
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");

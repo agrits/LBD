@@ -29,6 +29,8 @@ public class CSVServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Utils.prepareSession(request);
+		
 		String header = "University Name; Quality of courses & teaching?(Average);Contact with teachers? (Average);Inclusion of work/practical experience?(Average); Average;\n";
 		response.setContentType("text/csv");
 		response.setHeader("Content-Disposition", "attachment; filename=\"statistics.csv\"");
