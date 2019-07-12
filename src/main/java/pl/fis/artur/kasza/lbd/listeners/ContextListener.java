@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpSession;
 
 import pl.fis.artur.kasza.lbd.models.User;
 
@@ -30,7 +31,7 @@ public class ContextListener implements ServletContextListener {
 		}
 		
 		ctx.setAttribute("users", users);
-		ctx.declareRoles(roles);
+		ctx.setAttribute("sessions", new ArrayList<HttpSession>());
 		ServletContextListener.super.contextInitialized(sce);
 		
 		

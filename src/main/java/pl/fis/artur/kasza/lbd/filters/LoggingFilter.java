@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class LoggingFilter
  */
-@WebFilter(filterName = "/LoggingFilter", urlPatterns = {"/lbd/*"})
+@WebFilter(filterName = "/LoggingFilter", urlPatterns = {"*"})
 
 public class LoggingFilter implements Filter {
 

@@ -1,4 +1,4 @@
-package pl.fis.artur.kasza.lbd.filters;
+package pl.fis.artur.kasza.lbd.beans;
 
 import java.io.IOException;
 import java.util.ArrayList;

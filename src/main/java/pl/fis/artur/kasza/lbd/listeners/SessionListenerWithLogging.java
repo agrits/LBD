@@ -1,10 +1,12 @@
 package pl.fis.artur.kasza.lbd.listeners;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
@@ -31,6 +33,12 @@ public class SessionListenerWithLogging implements HttpSessionListener {
     public void sessionCreated(HttpSessionEvent se)  { 
     	HttpSession session = se.getSession();
         logger.info("Session created at "+LocalDateTime.now());
+        ServletContext ctx = session.getServletContext();
+        
+        @SuppressWarnings("unchecked")
+		ArrayList<HttpSession> sessions = (ArrayList<HttpSession>) ctx.getAttribute("sessions");
+        sessions.add(session);
+        ctx.setAttribute("sessions", sessions);
     }
 
 	/**

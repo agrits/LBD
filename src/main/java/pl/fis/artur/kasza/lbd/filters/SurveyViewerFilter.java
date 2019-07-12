@@ -20,14 +20,15 @@ import pl.fis.artur.kasza.lbd.models.User;
  * Servlet Filter implementation class SurveyViewerFilter
  */
 
-@WebFilter(filterName = "/SurveyManagerFilter", urlPatterns = {"/average-statistics", "/median-statistics", "median-csv", "average-csv"})
-public class SurveyManagerFilter implements Filter {
+@WebFilter(filterName = "/SurveyViewerFilter", urlPatterns = {"median-csv", "average-csv"})
 
-	private String[] ROLES_PERMITTED = {"STATISTIC_MANAGER", "ADMIN"};
+public class SurveyViewerFilter implements Filter {
+
+	private String[] ROLES_PERMITTED = {"STATISTIC_VIEWER", "STATISTIC_MANAGER", "ADMIN"};
     /**
      * Default constructor. 
      */
-    public SurveyManagerFilter() {
+    public SurveyViewerFilter() {
         // TODO Auto-generated constructor stub
     }
 

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
-import pl.fis.artur.kasza.lbd.filters.SurveyManagerBean;
+import pl.fis.artur.kasza.lbd.beans.SurveyManagerBean;
 
 /**
  * Servlet implementation class SurveysServlet
