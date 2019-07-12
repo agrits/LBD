@@ -1,8 +1,18 @@
 package pl.fis.artur.kasza.lbd.models;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
+import javax.enterprise.inject.Produces;
+
+import pl.fis.artur.kasza.lbd.qualifiers.Formatting;
+
 public class User {
 	private String username, password, firstName, lastName, role, sessionID, ip, lang;
 	private int id;
+	public User() {
+		 	
+	}
 	public User(String username, String password, String firstName, String lastName, String role, int id) {
 		super();
 		this.username = username;
@@ -48,6 +58,16 @@ public class User {
 	public void setLang(String lang) {
 		this.lang = lang;
 	}
+	
+	@Produces @Formatting
+	public NumberFormat getNumberFormat() {
+		if(lang != null)
+			return NumberFormat.getNumberInstance(Locale.forLanguageTag(lang));
+		else
+			return NumberFormat.getNumberInstance(Locale.getDefault());
+	}
+	
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -22,9 +21,7 @@ import javax.servlet.http.HttpSession;
 public class LoggingFilter implements Filter {
 
     private Logger logger;
-    private String username = "admin";
-    private String password = "admin";
-    private String realm = "Protected";
+
 
 	/**
      * Default constructor. 
@@ -46,9 +43,7 @@ public class LoggingFilter implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		long startTime = System.nanoTime();
 		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) res;
-		HttpSession session = request.getSession();
-		
+		HttpServletResponse response = (HttpServletResponse) res;		
 	
 		chain.doFilter(request, response);
 		
@@ -64,21 +59,5 @@ public class LoggingFilter implements Filter {
 				request.getHeader("Accept")));
 		
 	}
-
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		
-	}
-	
-	private void unauthorized(HttpServletResponse response, String message) throws IOException {
-        response.setHeader("WWW-Authenticate", "Basic realm=\"" + realm + "\"");
-        response.sendError(401, message);
-    }
-
-    private void unauthorized(HttpServletResponse response) throws IOException {
-        unauthorized(response, "Unauthorized");
-}
 
 }

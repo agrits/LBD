@@ -2,6 +2,7 @@ package pl.fis.artur.kasza.lbd.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import pl.fis.artur.kasza.lbd.calculators.Calculator;
 import pl.fis.artur.kasza.lbd.models.Survey;
 import pl.fis.artur.kasza.lbd.qualifiers.Average;
+import pl.fis.artur.kasza.lbd.qualifiers.Formatting;
 import pl.fis.artur.kasza.lbd.utils.Questions;
 import pl.fis.artur.kasza.lbd.utils.Utils;
 
@@ -29,6 +31,9 @@ public class AverageStatisticsServlet extends HttpServlet {
 	@Inject
 	@Average
 	private Calculator calculator;
+	
+	@Inject @Formatting
+	private NumberFormat numberFormat;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -44,7 +49,8 @@ public class AverageStatisticsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Utils.prepareSession(request);
 		PrintWriter pw = response.getWriter();
-		
+		if(numberFormat!=null)
+			pw.append(numberFormat.toString());
 		
 		ServletContext context = request.getServletContext();
 		
@@ -61,9 +67,11 @@ public class AverageStatisticsServlet extends HttpServlet {
 				ArrayList<Double> currentScores = scores.get(university);
 				pw.append(String.format("<h3>%s</h3>", university));
 				for(int i = 0; i<3; i++) {
-					pw.append(String.format("\"%s\": %.2f<br>", Questions.questions[i], currentScores.get(i)));
+					pw.append(String.format("\"%s\": %s<br>", 
+							Questions.questions[i], 
+							numberFormat.format(currentScores.get(i))));
 				}
-				pw.append(String.format("Overall average: %.2f", currentScores.get(3)));
+				pw.append(String.format("Overall average: %s", numberFormat.format(currentScores.get(3))));
 				
 				
 			}

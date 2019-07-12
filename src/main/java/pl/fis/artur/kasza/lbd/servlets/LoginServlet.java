@@ -50,12 +50,7 @@ public class LoginServlet extends HttpServlet {
 				return;
 			}
 		}
-		pw.append("Login failed.\n");
-		pw.append(username+"\n");
-		pw.append(password+"\n");
-		pw.append(Arrays.asList(users).toString());
-		return;
-		
+		pw.append("<h3>Login failed.</h3><br>").append("<a href='login.html'>Login</a><br>");
 	}
 
 }

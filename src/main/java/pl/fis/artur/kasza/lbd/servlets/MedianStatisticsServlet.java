@@ -2,6 +2,7 @@ package pl.fis.artur.kasza.lbd.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import pl.fis.artur.kasza.lbd.calculators.Calculator;
 import pl.fis.artur.kasza.lbd.models.Survey;
+import pl.fis.artur.kasza.lbd.qualifiers.Formatting;
 import pl.fis.artur.kasza.lbd.qualifiers.Median;
 import pl.fis.artur.kasza.lbd.utils.Questions;
 import pl.fis.artur.kasza.lbd.utils.Utils;
@@ -23,7 +25,10 @@ import pl.fis.artur.kasza.lbd.utils.Utils;
 @WebServlet("/median-statistics")
 public class MedianStatisticsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	@Inject @Formatting
+	private NumberFormat numberFormat;
+	
 	@Inject
 	@Median
 	private Calculator calculator;
@@ -59,9 +64,11 @@ public class MedianStatisticsServlet extends HttpServlet {
 				ArrayList<Double> currentScores = scores.get(university);
 				pw.append(String.format("<h3>%s</h3>", university));
 				for(int i = 0; i<3; i++) {
-					pw.append(String.format("\"%s\": %.2f<br>", Questions.questions[i], currentScores.get(i)));
+					pw.append(String.format("\"%s\": %s<br>", 
+							Questions.questions[i], 
+							numberFormat.format(currentScores.get(i))));
 				}
-				pw.append(String.format("Overall median: %.2f", currentScores.get(3)));
+				pw.append(String.format("Overall median: %s", numberFormat.format(currentScores.get(3))));
 				
 				
 			}
